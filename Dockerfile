@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
 RUN apt-get update \
-  && apt-get install -y python pip
+  && apt-get install -y python3 pip postgresql postgresql-contrib
 
 COPY * /
 
