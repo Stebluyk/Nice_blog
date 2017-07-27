@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load i18n %}
+{% load add_get_parameters %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-9">
+    {% for object in object_list %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4><a href="{{ object.get_absolute_url }}">{{ object.title }}</a></h4>
+                <span class="text-muted">{{ object.created }}</span>
+            </div>
+            <div class="panel-body">
+                <p>
+                {% for t in object.tags.all %}
+                    <a href="{% find_tag t.name %}">{{ t.name }}</a>
+                {% endfor %}
+                </p>
+                {% with object.text|truncatewords:60 as text %}
+                    <div class="post-description">{{ text|safe }}</div>
+                {% endwith %}
+                <ul class="nav nav-pills post-info">
+                  <li><a href="{{ object.author.get_absolute_url }}">{{ object.author }}</a></li>
+                  <li><p>{% trans "Views" %} <span class="badge">{{ object.views }}</span></p></li>
+                  <li><p>{% trans "Comments" %} <span class="badge">{{ object.get_comments|length }}</span></p></li>
+                  <li><a href="{{ object.get_absolute_url }}">{% trans "Read more..." %}</a></li>
+                </ul>
+          </div>
+        </div>
+    {% empty %}
+        <p>{% trans "No records." %}</p>
+    {% endfor %}
+    {% include 'paginator.html' %}
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form action="" method="get">
+                {{ form|bootstrap }}
+                <input type="submit" class="btn btn-primary" value="{% trans "Filter" %}" />
+            </form>
+          </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

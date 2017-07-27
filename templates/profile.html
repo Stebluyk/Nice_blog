@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load bootstrap %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form enctype="multipart/form-data" action="" method="post">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <input type="submit" class="btn btn-primary" value="{% trans "Save" %}" />
+            </form>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="{{ object.get_avatar }}" class="avatar"/>
+            <h5>{{ object }}</h5>
+            <p class="text-muted">{% trans "Joined" %}: {{ object.date_joined }}</p>
+              <a href="{%  url 'account_change_password' %}">{% trans "Change password" %}</a>
+          </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}

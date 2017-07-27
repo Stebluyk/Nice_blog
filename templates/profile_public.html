@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <h5>{% trans "Description" %}</h5>
+            <p>{{ object.description }}</p>
+
+              <h5>{% trans "User posts" %}</h5>
+            <div class="list-group">
+              {% for post in object.get_user_posts %}
+                  <a href="{{ post.get_absolute_url }}" class="list-group-item"><span class="list-group-item-heading">{{ post }}</span></a>
+              {% endfor %}
+            </div>
+
+          </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <img src="{{ object.get_avatar }}" class="avatar"/>
+            <h5>{{ object }}</h5>
+            <p class="text-muted">{% trans "Joined" %}: {{ object.date_joined }}</p>
+              {% if object != request.user %}
+                <a href="{% url 'message' user=object.id %}">{% trans "Private message" %}</a>
+              {% endif %}
+          </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

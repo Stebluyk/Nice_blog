@@ -1,0 +1,45 @@
+{% load i18n %}
+
+<header class="navbar navbar-default navbar-fixed-top" id="menu-bar">
+    <div class="container">
+        <div class="navbar-header">
+          <a href="{% url 'post-list' %}" id="index" class="navbar-brand">{% trans "Nice Blog" %}</a>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbar-main">
+        {% if request.user.is_authenticated %}
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{% url 'post-create' %}" >
+                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;{% trans "Add Article" %}
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'message_list' %}">{% trans "Messages" %}</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="{% url 'profile' %}">{% trans "Profile" %}</a>
+                </li>
+                <li>
+                    <a href="{% url 'account_logout' %}" >
+                        <span class="glyphicon glyphicon-off" aria-hidden="true"></span>&nbsp;{% trans "Logout" %}
+                    </a>
+                </li>
+            </ul>
+        {% else %}
+            <ul class="nav navbar-nav navbar-right">
+                <li class="{% block register_active %}{% endblock %}"><a href="{% url 'account_signup' %}">{% trans "Sign Up" %}</a></li>
+                <li class="{% block login_active %}{% endblock %}"><a href="{% url 'account_login' %}">{% trans "Sign In" %}</a></li>
+            </ul>
+        {% endif %}
+        </div>
+    </div>
+</header>

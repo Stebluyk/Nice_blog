@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load i18n %}
+{% load add_get_parameters %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <h2>{{ object.title }}
+                {% if object.author == request.user %}
+                  <span style="float: right; font-size: 14px;"><a href="{{ object.get_update_url }}">{% trans "Update" %}</a></span>
+                {% endif %}
+                </h2>
+                  <hr>
+                {% if object.image %}
+                    <img src="{{ object.image.url }}" class="post-logo">
+                {% endif %}
+                <p>{{ object.text|safe }}</p>
+              </div>
+            </div>
+
+            {% if user.is_authenticated %}
+                <div class="panel panel-default">
+                  <div class="panel-heading">{% trans "Leave comment" %}</div>
+                  <div class="panel-body">
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form|bootstrap_inline }}
+                        <input type="submit" class="btn btn-primary" value="{% trans "Save" %}" />
+                    </form>
+                  </div>
+                </div>
+            {% endif %}
+
+            {% for comment in object.get_comments %}
+                <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ comment.author }} <span class="text-muted" style="float: right">{{ comment.created }}</span>
+                </div>
+                  <div class="panel-body">
+                    {{ comment.text }}
+                  </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="col-md-3">
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <img src="{{ object.author.get_avatar }}" />
+                <h5><a href="{{ object.author.get_absolute_url }}">{{ object.author }}</a></h5>
+                <p class="text-muted">{{ object.created }}</p>
+                {% for t in object.tags.all %}
+                  <a href="{% find_tag t.name %}">{{ t.name }}</a>
+                {% endfor %}
+              </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

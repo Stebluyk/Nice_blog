@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load i18n %}
+
+{% block content %}
+<div class="row">
+<div class="col-md-offset-3 col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|bootstrap }}
+            <input type="submit" class="btn btn-primary" value="{% trans "Send" %}" />
+        </form>
+      </div>
+    </div>
+{% for object in object_list %}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a href="{{ object.sender.get_absolute_url }}">{{ object.sender }}</a> <span class="text-muted" style="float: right;">{{ object.time_send }}</span>
+    </div>
+    <div class="panel-body">
+        {{ object.text }}
+    </div>
+</div>
+{% empty %}
+    <div class="panel panel-default">
+        <div class="panel-body">{% trans "You do not have any messages." %}</div>
+    </div>
+{% endfor %}
+{% include 'paginator.html' %}
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% load add_get_parameters %}
+
+{% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.number == 1 %}
+            <li class="disabled"><a href="#">&laquo;</a></li>
+        {% else %}
+            <li><a href="{% add_get page=1 %}">&laquo;</a></li>
+        {% endif %}
+
+        {% for p in page_range %}
+            {% if page_obj.number == p %}
+                <li class="active"><a href="{% add_get page=p %}">{{ p }}</a></li>
+            {% else %}
+                <li><a href="{% add_get page=p %}">{{ p }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.number == paginator.num_pages%}
+            <li class="disabled"><a href="#">&raquo;</a></li>
+        {% else %}
+            <li><a href="{% add_get page=paginator.num_pages %}">&raquo;</a></li>
+        {% endif %}
+    </ul>
+{% endif %}

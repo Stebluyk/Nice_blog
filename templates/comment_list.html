@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load i18n %}
+
+{% block content %}
+    {% for object in object_list %}
+        <p>{{ object }}</p>
+    {% empty %}
+        <p>No records.</p>
+    {% endfor %}
+    {% include 'paginator.html' %}
+{% endblock %}
