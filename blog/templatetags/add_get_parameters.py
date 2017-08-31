@@ -1,4 +1,4 @@
-import urllib
+import urllib.parse as urllib
 
 from django import template
 from django.template import Library, Node
