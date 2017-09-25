@@ -18,7 +18,7 @@ class ProfileView(UpdateView):
     model = User
     fields = ['first_name', 'last_name', 'email', 'avatar', 'description']
     template_name = 'profile.html'
-    success_url = '/profile/'
+    success_url = '/accounts/profile/'
 
     def get_object(self, queryset=None):
         return self.request.user
