@@ -10,7 +10,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = [env('HOST')]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -34,12 +34,14 @@ INSTALLED_APPS = [
     'datetimewidget',
 
     'blog.apps.BlogConfig',
+    'whitenoise.runserver_nostatic',
 ]
 
 SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -151,7 +153,7 @@ STATICFILES_DIRS = (
     root_path('static'),
 )
 
-STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 MEDIA_ROOT = root_path('media')
 
@@ -203,3 +205,5 @@ SUMMERNOTE_CONFIG = {
     },
 
 }
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
