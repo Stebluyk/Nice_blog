@@ -76,19 +76,19 @@ WSGI_APPLICATION = 'Blog.wsgi.application'
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
-    #'default': env.db(),
-     'default': {
-         'ENGINE': 'django.db.backends.postgresql',
-         'OPTIONS': {
-             'options': '-c search_path=public'
-         },
-         'NAME': 'blog',
-         'USER': 'webadmin',
-         'PASSWORD': 'FPSvmg03241',
-         'HOST': '10.100.3.105',
-         'PORT': '5432',
-         'CONN_MAX_AGE': None,
-     },
+    'default': env.db(),
+     #'default': {
+      #   'ENGINE': 'django.db.backends.postgresql',
+      #   'OPTIONS': {
+      #       'options': '-c search_path=public'
+      #   },
+      #   'NAME': 'blog',
+      #   'USER': 'webadmin',
+      #  'PASSWORD': 'FPSvmg03241',
+      #   'HOST': '10.100.3.105',
+      #   'PORT': '5432',
+      #   'CONN_MAX_AGE': None,
+     #},
 }
 
 DATABASES['default']['OPTIONS'] = {
